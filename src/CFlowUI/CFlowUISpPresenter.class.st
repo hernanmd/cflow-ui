@@ -1,47 +1,11 @@
 Class {
 	#name : #CFlowUISpPresenter,
-	#superclass : #SpPresenter,
+	#superclass : #StFBFileNavigationSystemPresenter,
 	#instVars : [
-		'treePresenter',
-		'graphPresenter',
 		'toolbar'
 	],
 	#category : #CFlowUI
 }
-
-{ #category : #specs }
-CFlowUISpPresenter >> defaultSpec [
-
-	^ SpBoxLayout newLeftToRight
-		add: #treePresenter;
-		add: #graphPresenter;
-		yourself
-]
-
-{ #category : #accessing }
-CFlowUISpPresenter >> graphPresenter [
-
-	^ graphPresenter
-]
-
-{ #category : #accessing }
-CFlowUISpPresenter >> graphPresenter: anObject [
-
-	graphPresenter := anObject
-]
-
-{ #category : #TOREMOVE }
-CFlowUISpPresenter >> initialExtent [
- 
-	^ 600 @ 400
-]
-
-{ #category : #initialization }
-CFlowUISpPresenter >> initializeImagePresenter [
-
-	self graphPresenter: self newImage.
-
-]
 
 { #category : #specs }
 CFlowUISpPresenter >> initializeLayout [
@@ -57,34 +21,20 @@ CFlowUISpPresenter >> initializeLayout [
 ]
 
 { #category : #initialization }
-CFlowUISpPresenter >> initializePresenters [
-
-	self 
-		initializeTreePresenter;
-		initializeImagePresenter;
-		initializeToolbar;
-		initializeLayout.
-]
-
-{ #category : #initialization }
 CFlowUISpPresenter >> initializeToolbar [
 
 	self toolbar: self newToolbar.
 ]
 
 { #category : #initialization }
-CFlowUISpPresenter >> initializeTreePresenter [
+CFlowUISpPresenter >> initializeWindow: aWindowPresenter [
 
-	self treePresenter: (self newTree
-		roots: { FileSystem root };
-		children: [ : arrayOfFileRef | arrayOfFileRef collect: #children ];
-		"displayIcon: [ : aFileReference | self iconNamed: aFileReference systemIconName ];" 
-		display: [ : aFileReference | aFileReference basename ];
-		contextMenu: [
-			SpMenuPresenter new 
-				addGroup: [ :group | group 
-					addItem: [ :item | item name: self treePresenter selectedItem asString ] ] ];
-		yourself)
+	super initializeWindow: aWindowPresenter.
+	self previewer: CFlowUICSourcePreviewer new.
+	self filter: (StFBCustomExtensionsFilter extensions: #( '.c' )).
+	self defaultFolder: FileLocator home asFileReference.
+
+
 ]
 
 { #category : #specs }
@@ -115,16 +65,4 @@ CFlowUISpPresenter >> toolbar: anObject [
 CFlowUISpPresenter >> toolbarHeight [
 
 	^ self class toolbarHeight
-]
-
-{ #category : #accessing }
-CFlowUISpPresenter >> treePresenter [
-
-	^ treePresenter
-]
-
-{ #category : #accessing }
-CFlowUISpPresenter >> treePresenter: anObject [
-
-	treePresenter := anObject
 ]
