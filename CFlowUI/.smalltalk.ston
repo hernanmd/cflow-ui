@@ -1,0 +1,1 @@
+SmalltalkCISpec {  #loading : [    SCIMetacelloLoadSpec {      #baseline : 'CFlowUI',      #directory : 'src',      #platforms : [ #pharo ]    }  ],  #testing : {    #coverage : {      #packages : [ 'CFlowUI*' ]    }  }}
