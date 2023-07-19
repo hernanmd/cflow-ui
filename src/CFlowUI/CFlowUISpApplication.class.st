@@ -9,6 +9,16 @@ Class {
 	#category : #CFlowUI
 }
 
+{ #category : #'world menu' }
+CFlowUISpApplication class >> menuCommandOn: aBuilder [
+
+	<worldMenu>
+	(aBuilder item: #'CFlow UI')
+		parent: #Tools;
+		action: [ self new run ];
+		icon: (self iconNamed: self taskbarIconName)
+]
+
 { #category : #running }
 CFlowUISpApplication >> start [ 
 	" Private - See superimplementor's comment "

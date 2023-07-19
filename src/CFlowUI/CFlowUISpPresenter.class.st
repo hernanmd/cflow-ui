@@ -77,7 +77,7 @@ CFlowUISpPresenter >> initializeTreePresenter [
 
 	self treePresenter: (self newTree
 		roots: { FileSystem root };
-		children: [ : aFileReference | aFileReference children ];
+		children: [ : arrayOfFileRef | arrayOfFileRef collect: #children ];
 		"displayIcon: [ : aFileReference | self iconNamed: aFileReference systemIconName ];" 
 		display: [ : aFileReference | aFileReference basename ];
 		contextMenu: [
