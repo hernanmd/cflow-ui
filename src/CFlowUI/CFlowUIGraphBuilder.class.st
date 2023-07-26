@@ -5,17 +5,51 @@ Class {
 		'fileReference',
 		'outputDirectory'
 	],
+	#classVars : [
+		'OutputDirectory'
+	],
 	#category : #CFlowUI
 }
+
+{ #category : #accessing }
+CFlowUIGraphBuilder class >> cFlowOutputFilenameFor: aFileReference [
+	" Answer a <FileReference> with the resulting output of cflow command "
+
+	^ (self outputFilenameFor: aFileReference), '0.png'
+]
+
+{ #category : #'instance creation' }
+CFlowUIGraphBuilder class >> defaultOutputDirectory [
+
+	^ FileSystem workingDirectory / 'cflow_tmp'
+]
 
 { #category : #'instance creation' }
 CFlowUIGraphBuilder class >> newFromFileReference: aFileReference [ 
 	" Answer a <FileReference> representing the output graph image given aFileReference C source code "
 	^ self new
-		outputDirectory: 'cflow_tmp';
+		outputDirectory: self outputDirectory;
 		initializeWithFileReference: aFileReference;
 		execCFlow;
 		outputFileReference
+]
+
+{ #category : #'instance creation' }
+CFlowUIGraphBuilder class >> outputDirectory [
+
+	^ OutputDirectory
+		ifNil: [ OutputDirectory := self defaultOutputDirectory ]
+]
+
+{ #category : #accessing }
+CFlowUIGraphBuilder class >> outputFilenameFor: aFileReference [
+	" Answer a <String> representing the full path to aFileReference "
+
+	^ String streamContents: [ :stream |
+			stream 
+				<< self outputDirectory fullName;
+				<< DiskStore delimiter;
+				<< aFileReference basenameWithoutExtension ]
 ]
 
 { #category : #accessing }
@@ -94,11 +128,7 @@ CFlowUIGraphBuilder >> outputFileReference [
 
 { #category : #accessing }
 CFlowUIGraphBuilder >> outputFilename [
-	" Answer a <String> representing the full path to the output file "
+	" Answer a <String> representing the full path to the receiver's output file "
 
-	^ String streamContents: [ :stream |
-			stream 
-				<< self outputDirectory;
-				<< DiskStore delimiter;
-				<< self fileReference basenameWithoutExtension ]
+	^ self class outputFilenameFor: self fileReference
 ]

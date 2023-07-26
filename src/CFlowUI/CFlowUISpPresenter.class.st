@@ -7,6 +7,21 @@ Class {
 	#category : #CFlowUI
 }
 
+{ #category : #commands }
+CFlowUISpPresenter class >> buildCommandsGroupWith: presenter forRoot: rootCommandGroup [
+
+	rootCommandGroup
+		register: ((CmCommandGroup named: 'Menu') asSpecGroup
+			register: CFlowUIOpenExternalCommand forSpec;
+			register: StFBNewFolderCommand forSpec;
+			register: StFBInspectCommand forSpec;	
+			register: ((CmCommandGroup named: 'Bookmarks') asSpecGroup
+				register: StFBAddBookmarkCommand forSpec;
+				yourself);
+			yourself).
+
+]
+
 { #category : #specs }
 CFlowUISpPresenter >> initializeLayout [
 
