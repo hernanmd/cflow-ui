@@ -34,7 +34,6 @@ CFlowUIOpenExternalCommand >> executeCommand: entry [
 
 	| command |
 
-	self halt.
 	command := OSSUnixSubprocess new
 		shellCommand: (self buildShellCommand: entry);
 		redirectStdout;
