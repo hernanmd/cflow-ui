@@ -10,10 +10,7 @@ BaselineOfCFlowUI >> baseline: spec [
 	spec
 		for: #(common)
 		do: [ 
-			spec 
-				package: 'CFlowUI';
-				package: 'CFlowUI-Tests'	with: [ spec requires: #(CFlowUI) ];
-			
+			spec
 				baseline: 'OSSubprocess'
 				with: [ spec repository: 'github://marianopeck/OSSubprocess:master/repository' ];
 	
@@ -22,6 +19,11 @@ BaselineOfCFlowUI >> baseline: spec [
 					spec 
 						repository: 'github://pharo-spec/NewTools:Pharo12';
 						loads: #('FileBrowser') ].
+
+			spec 
+				package: 'CFlowUI'      with: [ spec requires: #(OSSubprocess NewTools) ];
+				package: 'CFlowUI-Tests'	with: [ spec requires: #(CFlowUI) ].
+			
 			spec 
 				group: 'Core' 						with: #('CFlowUI' 'NewTools' 'OSSubprocess');
 				group: 'Tests' 						with: #('CFlowUI' 'CFlowUI-Tests');
