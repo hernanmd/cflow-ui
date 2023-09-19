@@ -7,14 +7,14 @@
 - [Description](#description)
 - [Installation](#installation)
   - [Baseline String](#baseline-string)
-- [Implementation notes](#implementation-note)
+- [Usage](#usage)
 - [Contribute](#contribute)
   - [Version management](#version-management)
 - [License](#license)
 
 # Description
 
-A small UI front-end to view C graphs produced by cflow and GraphViz from Pharo.
+A small UI front-end to view C graphs produced by cflow and GraphViz from Pharo >= 12.
 
 # Installation
 
@@ -52,7 +52,8 @@ Go to the menu Library and select the CFlowUI option or evaluate:
 CFlowUISpApplication new run
 ```
 
-![Screenshot 2023-08-04 at 14 26 17](https://github.com/hernanmd/cflow-ui/assets/4825959/f70d73d0-414a-46b7-a102-3c7eb90775de)
+
+<img width="1438" alt="Screenshot 2023-09-19 at 22 59 56" src="https://github.com/hernanmd/cflow-ui/assets/4825959/2e940078-f227-4538-9a88-728a015a216b">
 
 # Contribute
 
