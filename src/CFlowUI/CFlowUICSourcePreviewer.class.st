@@ -1,8 +1,9 @@
 Class {
 	#name : 'CFlowUICSourcePreviewer',
 	#superclass : 'StFileBrowserAbstractPreviewer',
-	#category : 'CFlowUI',
-	#package : 'CFlowUI'
+	#category : 'CFlowUI-UI',
+	#package : 'CFlowUI',
+	#tag : 'UI'
 }
 
 { #category : 'private' }

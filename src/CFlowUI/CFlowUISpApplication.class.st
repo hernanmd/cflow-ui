@@ -6,8 +6,9 @@ CFlowUISpApplication new run
 Class {
 	#name : 'CFlowUISpApplication',
 	#superclass : 'SpApplication',
-	#category : 'CFlowUI',
-	#package : 'CFlowUI'
+	#category : 'CFlowUI-Core',
+	#package : 'CFlowUI',
+	#tag : 'Core'
 }
 
 { #category : 'world menu' }

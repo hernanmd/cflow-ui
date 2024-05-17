@@ -1,8 +1,9 @@
 Class {
 	#name : 'CFlowUIOpenExternalCommand',
 	#superclass : 'CmCommand',
-	#category : 'CFlowUI',
-	#package : 'CFlowUI'
+	#category : 'CFlowUI-Commands',
+	#package : 'CFlowUI',
+	#tag : 'Commands'
 }
 
 { #category : 'converting' }

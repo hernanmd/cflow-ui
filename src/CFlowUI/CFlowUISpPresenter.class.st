@@ -1,18 +1,23 @@
+"
+Main Presenter of the CFlowUI application.
+"
 Class {
 	#name : 'CFlowUISpPresenter',
 	#superclass : 'StFileNavigationSystemPresenter',
 	#instVars : [
-		'toolbar'
+		'statusBar',
+		'graphSettingPresenter'
 	],
-	#category : 'CFlowUI',
-	#package : 'CFlowUI'
+	#category : 'CFlowUI-UI',
+	#package : 'CFlowUI',
+	#tag : 'UI'
 }
 
 { #category : 'commands' }
 CFlowUISpPresenter class >> buildCommandsGroupWith: presenter forRoot: rootCommandGroup [
 
 	rootCommandGroup
-		register: ((CmCommandGroup named: 'Menu') asSpecGroup
+		register: ((CmCommandGroup named: 'StFileBrowserNavigationMenu') asSpecGroup
 			register: CFlowUIOpenExternalCommand forSpec;
 			register: StFileBrowserNewDirectoryCommand forSpec;
 			register: StFileBrowserInspectCommand forSpec;	
@@ -33,36 +38,37 @@ CFlowUISpPresenter >> defaultDirectory [
 CFlowUISpPresenter >> initializeLayout [
 
 	^ self layout: (SpBoxLayout newTopToBottom
-		add: #toolbar height: self toolbarHeight + 10;
 		add: (SpPanedLayout newLeftToRight
 			positionOfSlider: 30 percent;
-			add: #treePresenter;
-			add: #graphPresenter;
+			add: (SpBoxLayout newLeftToRight
+				add: #treePresenter;
+				add: #graphSettingPresenter;
+				yourself);
+			add: #previewPresenter;
 			yourself);
+		add: statusBar height: self statusBarHeight;
 		yourself)
 ]
 
 { #category : 'initialization' }
-CFlowUISpPresenter >> initializeToolbar [
+CFlowUISpPresenter >> initializePresenters [
 
-	self toolbar: self newToolbar.
+	super initializePresenters.
+	self previewer: CFlowUICSourcePreviewer new.
+	self filter: (StCustomExtensionsFilter extensions: #( '.c' )).
+	self defaultFolder: FileLocator home asFileReference.
+	graphSettingPresenter := CFlowUICSettingsPresenter new.
 ]
 
 { #category : 'initialization' }
 CFlowUISpPresenter >> initializeWindow: aWindowPresenter [
 
 	super initializeWindow: aWindowPresenter.
-	self previewer: CFlowUICSourcePreviewer new.
-	self filter: (StCustomExtensionsFilter extensions: #( '.c' )).
-	self defaultFolder: FileLocator home asFileReference.
-
-
-]
-
-{ #category : 'specs' }
-CFlowUISpPresenter >> labelHeight [
-
-	^ self class labelHeight
+	aWindowPresenter 
+		title: 'CFlow UI';
+		windowIcon: (self iconNamed: #objects);
+		initialExtent: (900 @ 600) scaledByDisplayScaleFactor;
+		statusBar: (statusBar := SpStatusBarPresenter new)
 ]
 
 { #category : 'utilities' }
@@ -73,26 +79,8 @@ CFlowUISpPresenter >> openFolder: aFileReference [
 
 ]
 
-{ #category : 'TOREMOVE' }
-CFlowUISpPresenter >> title [ 
-
-	^ 'CFlow UI'
-]
-
-{ #category : 'accessing' }
-CFlowUISpPresenter >> toolbar [
-
-	^ toolbar
-]
-
-{ #category : 'accessing' }
-CFlowUISpPresenter >> toolbar: anObject [
-
-	toolbar := anObject
-]
-
 { #category : 'specs' }
-CFlowUISpPresenter >> toolbarHeight [
+CFlowUISpPresenter >> statusBarHeight [
 
-	^ self class toolbarHeight
+	^ self class statusBarHeight
 ]

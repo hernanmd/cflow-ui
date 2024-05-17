@@ -8,8 +8,9 @@ Class {
 	#classVars : [
 		'OutputDirectory'
 	],
-	#category : 'CFlowUI',
-	#package : 'CFlowUI'
+	#category : 'CFlowUI-Core',
+	#package : 'CFlowUI',
+	#tag : 'Core'
 }
 
 { #category : 'accessing' }
