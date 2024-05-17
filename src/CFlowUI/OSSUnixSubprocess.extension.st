@@ -1,6 +1,6 @@
-Extension { #name : #OSSUnixSubprocess }
+Extension { #name : 'OSSUnixSubprocess' }
 
-{ #category : #'*CFlowUI' }
+{ #category : '*CFlowUI' }
 OSSUnixSubprocess >> collectArgumentPointersInto: aPointer [
 	"Allocates each string argument with a null terminated char and add them into aPointer"
 	
@@ -16,7 +16,7 @@ OSSUnixSubprocess >> collectArgumentPointersInto: aPointer [
 	aPointer platformUnsignedLongAt: ((self argVArguments size - 1) * self systemAccessor sizeOfPointer) + 1 put: 0.
 ]
 
-{ #category : #'*CFlowUI' }
+{ #category : '*CFlowUI' }
 OSSUnixSubprocess >> collectEnvVariablesPointersInto: aPointer [
 	"Creates the pair of KEY=VALUE string, allocating the memory and adding a null terminated char to each of the env.
 	Each processed pair of KEY=VALUE is added to aPointer. "

@@ -1,6 +1,6 @@
 Class {
-	#name : #CFlowUIGraphBuilder,
-	#superclass : #Object,
+	#name : 'CFlowUIGraphBuilder',
+	#superclass : 'Object',
 	#instVars : [
 		'fileReference',
 		'outputDirectory'
@@ -8,23 +8,24 @@ Class {
 	#classVars : [
 		'OutputDirectory'
 	],
-	#category : #CFlowUI
+	#category : 'CFlowUI',
+	#package : 'CFlowUI'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CFlowUIGraphBuilder class >> cFlowOutputFilenameFor: aFileReference [
 	" Answer a <FileReference> with the resulting output of cflow command "
 
 	^ (self outputFilenameFor: aFileReference), '0.png'
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 CFlowUIGraphBuilder class >> defaultOutputDirectory [
 
 	^ FileSystem workingDirectory / 'cflow_tmp'
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 CFlowUIGraphBuilder class >> newFromFileReference: aFileReference [ 
 	" Answer a <FileReference> representing the output graph image given aFileReference C source code "
 	^ self new
@@ -34,14 +35,14 @@ CFlowUIGraphBuilder class >> newFromFileReference: aFileReference [
 		outputFileReference
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 CFlowUIGraphBuilder class >> outputDirectory [
 
 	^ OutputDirectory
 		ifNil: [ OutputDirectory := self defaultOutputDirectory ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CFlowUIGraphBuilder class >> outputFilenameFor: aFileReference [
 	" Answer a <String> representing the full path to aFileReference "
 
@@ -52,7 +53,7 @@ CFlowUIGraphBuilder class >> outputFilenameFor: aFileReference [
 				<< aFileReference basenameWithoutExtension ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CFlowUIGraphBuilder >> buildShellCommand [
 
 	^ String streamContents: [ : stream |
@@ -63,7 +64,7 @@ CFlowUIGraphBuilder >> buildShellCommand [
 			<< self outputFilename ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CFlowUIGraphBuilder >> execCFlow [
 
 	| command |
@@ -78,19 +79,19 @@ CFlowUIGraphBuilder >> execCFlow [
 	command closeAndCleanStreams.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CFlowUIGraphBuilder >> fileReference [
 
 	^ fileReference
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CFlowUIGraphBuilder >> fileReference: aFileReference [ 
 
 	fileReference := aFileReference.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CFlowUIGraphBuilder >> initializeOutputDirectory [
 
 	self outputDirectory 
@@ -98,14 +99,14 @@ CFlowUIGraphBuilder >> initializeOutputDirectory [
 		
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 CFlowUIGraphBuilder >> initializeWithFileReference: aFileReference [ 
 
 	self fileReference: aFileReference.
 	self initializeOutputDirectory.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CFlowUIGraphBuilder >> outputDirectory [
 	" Answer a <String> representing the output path of graph files "
 
@@ -113,20 +114,20 @@ CFlowUIGraphBuilder >> outputDirectory [
 		ifNil: [ outputDirectory := self fileReference parent pathString ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CFlowUIGraphBuilder >> outputDirectory: anObject [
 
 	outputDirectory := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CFlowUIGraphBuilder >> outputFileReference [
 	" Answer a <FileReference> with the resulting output of cflow command "
 
 	^ (self outputFilename , '0.png') asFileReference
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CFlowUIGraphBuilder >> outputFilename [
 	" Answer a <String> representing the full path to the receiver's output file "
 

@@ -4,12 +4,13 @@ CFlowUISpApplication new run
 ```
 "
 Class {
-	#name : #CFlowUISpApplication,
-	#superclass : #SpApplication,
-	#category : #CFlowUI
+	#name : 'CFlowUISpApplication',
+	#superclass : 'SpApplication',
+	#category : 'CFlowUI',
+	#package : 'CFlowUI'
 }
 
-{ #category : #'world menu' }
+{ #category : 'world menu' }
 CFlowUISpApplication class >> menuCommandOn: aBuilder [
 
 	<worldMenu>
@@ -19,9 +20,11 @@ CFlowUISpApplication class >> menuCommandOn: aBuilder [
 		icon: (self iconNamed: self taskbarIconName)
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 CFlowUISpApplication >> start [ 
 	" Private - See superimplementor's comment "
 
-	(CFlowUISpPresenter newApplication: self) open.
+	(CFlowUISpPresenter 
+		newApplication: self 
+		model: StFileSystemModel new) open.
 ]

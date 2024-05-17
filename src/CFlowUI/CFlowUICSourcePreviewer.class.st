@@ -1,31 +1,31 @@
 Class {
-	#name : #CFlowUICSourcePreviewer,
-	#superclass : #StFBAbstractPreviewer,
-	#classTraits : 'SpTContextMenu classTrait',
-	#category : #CFlowUI
+	#name : 'CFlowUICSourcePreviewer',
+	#superclass : 'StFileBrowserAbstractPreviewer',
+	#category : 'CFlowUI',
+	#package : 'CFlowUI'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 CFlowUICSourcePreviewer >> buildImageFrom: aFileReference [ 
 
 	^ (CFlowUIGraphBuilder newFromFileReference: aFileReference)
 		binaryReadStreamDo: [ :stream | PNGReadWriter formFromStream: stream ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 CFlowUICSourcePreviewer >> initialize [
 
 	self class initializeSlots: self.
 	super initialize.
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 CFlowUICSourcePreviewer >> matchingMimeType: element [
 
 	^ element matches: ZnMimeType srcCCode
 ]
 
-{ #category : #templateMethod }
+{ #category : 'templateMethod' }
 CFlowUICSourcePreviewer >> previewActionOn: aFileReference [
 
 	^ SpImagePresenter new

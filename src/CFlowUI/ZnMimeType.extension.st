@@ -1,6 +1,6 @@
-Extension { #name : #ZnMimeType }
+Extension { #name : 'ZnMimeType' }
 
-{ #category : #'*CFlowUI' }
+{ #category : '*CFlowUI' }
 ZnMimeType class >> srcCCode [
 	^ self main: 'text' sub: 'x-csrc'
 ]

@@ -1,17 +1,18 @@
 Class {
-	#name : #CFlowUIOpenExternalCommand,
-	#superclass : #CmCommand,
-	#category : #CFlowUI
+	#name : 'CFlowUIOpenExternalCommand',
+	#superclass : 'CmCommand',
+	#category : 'CFlowUI',
+	#package : 'CFlowUI'
 }
 
-{ #category : #converting }
+{ #category : 'converting' }
 CFlowUIOpenExternalCommand >> asSpecCommand [
 	^ super asSpecCommand
 		iconName: #open;
 		yourself
 ]
 
-{ #category : #hooks }
+{ #category : 'hooks' }
 CFlowUIOpenExternalCommand >> buildShellCommand: anEntry [
 
 	^ String streamContents: [ : stream |
@@ -20,7 +21,7 @@ CFlowUIOpenExternalCommand >> buildShellCommand: anEntry [
 			<< (CFlowUIGraphBuilder cFlowOutputFilenameFor: anEntry) ]
 ]
 
-{ #category : #executing }
+{ #category : 'executing' }
 CFlowUIOpenExternalCommand >> execute [
 	"Execute the actions that should be done by the command.
 	 This method expect that the context has been put in #context inst. var. if any context is relevant."
@@ -29,7 +30,7 @@ CFlowUIOpenExternalCommand >> execute [
 		ifNotNil: [ : entry | self executeCommand: entry  ]
 ]
 
-{ #category : #hooks }
+{ #category : 'hooks' }
 CFlowUIOpenExternalCommand >> executeCommand: entry [
 
 	| command |
@@ -45,7 +46,7 @@ CFlowUIOpenExternalCommand >> executeCommand: entry [
 
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 CFlowUIOpenExternalCommand >> initialize [
 	super initialize.
 	self

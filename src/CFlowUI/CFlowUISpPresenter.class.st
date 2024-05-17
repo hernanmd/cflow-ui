@@ -1,28 +1,35 @@
 Class {
-	#name : #CFlowUISpPresenter,
-	#superclass : #StFBFileNavigationSystemPresenter,
+	#name : 'CFlowUISpPresenter',
+	#superclass : 'StFileNavigationSystemPresenter',
 	#instVars : [
 		'toolbar'
 	],
-	#category : #CFlowUI
+	#category : 'CFlowUI',
+	#package : 'CFlowUI'
 }
 
-{ #category : #commands }
+{ #category : 'commands' }
 CFlowUISpPresenter class >> buildCommandsGroupWith: presenter forRoot: rootCommandGroup [
 
 	rootCommandGroup
 		register: ((CmCommandGroup named: 'Menu') asSpecGroup
 			register: CFlowUIOpenExternalCommand forSpec;
-			register: StFBNewFolderCommand forSpec;
-			register: StFBInspectCommand forSpec;	
+			register: StFileBrowserNewDirectoryCommand forSpec;
+			register: StFileBrowserInspectCommand forSpec;	
 			register: ((CmCommandGroup named: 'Bookmarks') asSpecGroup
-				register: StFBAddBookmarkCommand forSpec;
+				register: StFileBrowserAddBookmarkCommand forSpec;
 				yourself);
 			yourself).
 
 ]
 
-{ #category : #specs }
+{ #category : 'defaults' }
+CFlowUISpPresenter >> defaultDirectory [ 
+
+	^ StFileBrowserSettings defaultDirectory.
+]
+
+{ #category : 'specs' }
 CFlowUISpPresenter >> initializeLayout [
 
 	^ self layout: (SpBoxLayout newTopToBottom
@@ -35,48 +42,56 @@ CFlowUISpPresenter >> initializeLayout [
 		yourself)
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 CFlowUISpPresenter >> initializeToolbar [
 
 	self toolbar: self newToolbar.
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 CFlowUISpPresenter >> initializeWindow: aWindowPresenter [
 
 	super initializeWindow: aWindowPresenter.
 	self previewer: CFlowUICSourcePreviewer new.
-	self filter: (StFBCustomExtensionsFilter extensions: #( '.c' )).
+	self filter: (StCustomExtensionsFilter extensions: #( '.c' )).
 	self defaultFolder: FileLocator home asFileReference.
 
 
 ]
 
-{ #category : #specs }
+{ #category : 'specs' }
 CFlowUISpPresenter >> labelHeight [
 
 	^ self class labelHeight
 ]
 
-{ #category : #TOREMOVE }
+{ #category : 'utilities' }
+CFlowUISpPresenter >> openFolder: aFileReference [
+
+	self updateWidgetWithFileReference: aFileReference.
+	model openFolder: aFileReference.
+
+]
+
+{ #category : 'TOREMOVE' }
 CFlowUISpPresenter >> title [ 
 
 	^ 'CFlow UI'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CFlowUISpPresenter >> toolbar [
 
 	^ toolbar
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CFlowUISpPresenter >> toolbar: anObject [
 
 	toolbar := anObject
 ]
 
-{ #category : #specs }
+{ #category : 'specs' }
 CFlowUISpPresenter >> toolbarHeight [
 
 	^ self class toolbarHeight
