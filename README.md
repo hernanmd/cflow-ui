@@ -26,11 +26,10 @@ pip install pycflow2dot
 From Pharo:
 
 ```smalltalk
-EpMonitor disableDuring: [ 
-	Metacello new	
-		baseline: 'CFlowUI';	
-		repository: 'github://hernanmd/cflow-ui/src';	
-		load ].
+Metacello new	
+	baseline: 'CFlowUI';	
+	repository: 'github://hernanmd/cflow-ui/src';	
+	load.
 ```
 
 ## Baseline String 
