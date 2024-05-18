@@ -34,20 +34,20 @@ CFlowUISpPresenter >> defaultDirectory [
 	^ StFileBrowserSettings defaultDirectory.
 ]
 
-{ #category : 'specs' }
-CFlowUISpPresenter >> initializeLayout [
+{ #category : 'layout' }
+CFlowUISpPresenter >> defaultLayout [
 
-	^ self layout: (SpBoxLayout newTopToBottom
-		add: (SpPanedLayout newLeftToRight
-			positionOfSlider: 30 percent;
-			add: (SpBoxLayout newLeftToRight
-				add: #treePresenter;
-				add: #graphSettingPresenter;
+	^ SpBoxLayout newTopToBottom
+			add: self navigationLayout expand: false;	
+			add: (SpPanedLayout newLeftToRight
+				positionOfSlider: 70 percent;
+				add: self topPaneLayout;
+				add: graphSettingPresenter;
 				yourself);
-			add: #previewPresenter;
-			yourself);
+			add: notebookPreviewer;
+			yourself;
 		add: statusBar height: self statusBarHeight;
-		yourself)
+		yourself
 ]
 
 { #category : 'initialization' }
@@ -57,13 +57,12 @@ CFlowUISpPresenter >> initializePresenters [
 	self previewer: CFlowUICSourcePreviewer new.
 	self filter: (StCustomExtensionsFilter extensions: #( '.c' )).
 	self defaultFolder: FileLocator home asFileReference.
-	graphSettingPresenter := CFlowUICSettingsPresenter new.
+	graphSettingPresenter := self instantiate: CFlowUICSettingsPresenter.
 ]
 
 { #category : 'initialization' }
 CFlowUISpPresenter >> initializeWindow: aWindowPresenter [
 
-	super initializeWindow: aWindowPresenter.
 	aWindowPresenter 
 		title: 'CFlow UI';
 		windowIcon: (self iconNamed: #objects);
@@ -82,5 +81,5 @@ CFlowUISpPresenter >> openFolder: aFileReference [
 { #category : 'specs' }
 CFlowUISpPresenter >> statusBarHeight [
 
-	^ self class statusBarHeight
+	^ self class toolbarHeight
 ]

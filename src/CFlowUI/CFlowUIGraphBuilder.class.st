@@ -1,3 +1,11 @@
+"
+Wrapper for CFlow command-line execution.
+The two key methods are:
+
+- `execCFlow`
+- `buildShellCommand`
+
+"
 Class {
 	#name : 'CFlowUIGraphBuilder',
 	#superclass : 'Object',
