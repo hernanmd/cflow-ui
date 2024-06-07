@@ -5,8 +5,8 @@ Class {
 	#name : 'CFlowUISpPresenter',
 	#superclass : 'StFileNavigationSystemPresenter',
 	#instVars : [
-		'statusBar',
-		'graphSettingPresenter'
+		'operationsPresenter',
+		'toolbarPresenter'
 	],
 	#category : 'CFlowUI-UI',
 	#package : 'CFlowUI',
@@ -37,16 +37,13 @@ CFlowUISpPresenter >> defaultDirectory [
 { #category : 'layout' }
 CFlowUISpPresenter >> defaultLayout [
 
-	^ SpBoxLayout newTopToBottom
+	^ SpBoxLayout newLeftToRight 
+		add: (	SpBoxLayout newTopToBottom
 			add: self navigationLayout expand: false;	
-			add: (SpPanedLayout newLeftToRight
-				positionOfSlider: 70 percent;
-				add: self topPaneLayout;
-				add: graphSettingPresenter;
-				yourself);
+			add: self topPaneLayout;
 			add: notebookPreviewer;
-			yourself;
-		add: statusBar height: self statusBarHeight;
+			yourself);
+		add: operationsPresenter;
 		yourself
 ]
 
@@ -57,7 +54,8 @@ CFlowUISpPresenter >> initializePresenters [
 	self previewer: CFlowUICSourcePreviewer new.
 	self filter: (StCustomExtensionsFilter extensions: #( '.c' )).
 	self defaultFolder: FileLocator home asFileReference.
-	graphSettingPresenter := self instantiate: CFlowUICSettingsPresenter.
+	operationsPresenter := self instantiate: CFlowUICOperationsPresenter.
+
 ]
 
 { #category : 'initialization' }
@@ -67,7 +65,17 @@ CFlowUISpPresenter >> initializeWindow: aWindowPresenter [
 		title: 'CFlow UI';
 		windowIcon: (self iconNamed: #objects);
 		initialExtent: (900 @ 600) scaledByDisplayScaleFactor;
-		statusBar: (statusBar := SpStatusBarPresenter new)
+		statusBar: (toolbarPresenter := self newToolbar
+			addItemRight: (SpToolbarButtonPresenter new
+				label: 'Close';
+				icon: (self application iconNamed: #smallCancel);
+				action: [ self delete ];
+				yourself);
+			addItemRight: (SpToolbarButtonPresenter new
+				label: 'Update';
+				icon: (self application iconNamed: #smallUpdate);				
+				action: [ self updateCFlowImage ];
+				yourself))
 ]
 
 { #category : 'utilities' }
@@ -82,4 +90,12 @@ CFlowUISpPresenter >> openFolder: aFileReference [
 CFlowUISpPresenter >> statusBarHeight [
 
 	^ self class toolbarHeight
+]
+
+{ #category : 'utilities' }
+CFlowUISpPresenter >> updateCFlowImage [
+
+	self selectedEntry isFile
+		ifFalse: [ ^ self ].
+	
 ]

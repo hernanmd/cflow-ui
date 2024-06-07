@@ -7,7 +7,11 @@ Class {
 		'outputFilename',
 		'mainFunctionName',
 		'initialTokenStackSize',
-		'preprocessorCommand'
+		'preprocessorCommand',
+		'useIndentation',
+		'setAllFunctions',
+		'setPrintNestingLevel',
+		'outputFormat'
 	],
 	#category : 'CFlowUI-Core',
 	#package : 'CFlowUI',
@@ -22,10 +26,22 @@ CFlowUICommandBuilder >> depthCutOff [
 ]
 
 { #category : 'accessing' }
+CFlowUICommandBuilder >> doNotUseIndentation [
+
+	useIndentation := false
+]
+
+{ #category : 'accessing' }
 CFlowUICommandBuilder >> includeClasses [
 	
 	^ includeClasses
 		ifNil: [ includeClasses := OrderedCollection new ]
+]
+
+{ #category : 'accessing' }
+CFlowUICommandBuilder >> includeClasses: aString [ 
+
+	self includeClasses addAll: aString
 ]
 
 { #category : 'accessing' }
@@ -43,6 +59,11 @@ CFlowUICommandBuilder >> mainFunctionName [
 ]
 
 { #category : 'accessing' }
+CFlowUICommandBuilder >> mainFunctionName: aString [ 
+	mainFunctionName := aString
+]
+
+{ #category : 'accessing' }
 CFlowUICommandBuilder >> outputFilename [
 
 	^ outputFilename
@@ -50,8 +71,44 @@ CFlowUICommandBuilder >> outputFilename [
 ]
 
 { #category : 'accessing' }
+CFlowUICommandBuilder >> outputFormat: aString [ 
+
+	outputFormat := aString
+]
+
+{ #category : 'accessing' }
 CFlowUICommandBuilder >> preprocessorCommand [
 
 	^ preprocessorCommand
 		ifNil: [ preprocessorCommand := String empty ]
+]
+
+{ #category : 'accessing' }
+CFlowUICommandBuilder >> setAllFunctions [
+
+	setAllFunctions := true
+]
+
+{ #category : 'accessing' }
+CFlowUICommandBuilder >> setPrintNestingLevel [
+
+	setPrintNestingLevel := true
+]
+
+{ #category : 'accessing' }
+CFlowUICommandBuilder >> unsetAllFunctions [
+
+	setAllFunctions := false
+]
+
+{ #category : 'accessing' }
+CFlowUICommandBuilder >> unsetPrintNestingLevel [
+
+	setPrintNestingLevel := false
+]
+
+{ #category : 'accessing' }
+CFlowUICommandBuilder >> useIndentation [
+	
+	useIndentation := true
 ]
